@@ -54,12 +54,13 @@ foto[4]= loadImage('data/4.png');
 esposa = loadImage('data/esposas.svg');
 ppAzul = loadImage('data/PP-azul.svg');
 psoeRojo = loadImage('data/PSOE-rojo.svg');
+redes = loadImage('data/rrss.svg');
 
 indultos = indultosTotal;
 }
 
 function setup() {
- createCanvas(1920, 1350);
+ createCanvas(1920, 1450);
  frameRate(3);
  noStroke();
  preparacion();
@@ -132,6 +133,16 @@ textSize(15);
 textStyle(NORMAL);
 text('Desde 1996 hasta 2019',width/2,68);
 
+
+// cierre
+textSize(15);
+textStyle(NORMAL);
+text('Fuente Boe',width/2,1380);
+imageMode(CENTER);
+ image(esposa,width/2, 940);
+image(redes, (width/2),1425);
+
+
 //si filtro activo
 if (indultosTotal.length == indultos.length ){
   yFiltro = 0;
@@ -161,10 +172,6 @@ if (indultosTotal.length == indultos.length ){
  image(psoeRojo, (width/2)+195,84+ yFiltro, ppAzul.width/6,ppAzul.height/6);
  text(round((pp*100)/Object.keys(indultos).length) + '%',(width/2)-170,105+ yFiltro);
  rect((width/2)-150, 100+ yFiltro, (pp*300)/Object.keys(indultos).length,5);
-
- //espoasas
- imageMode(CENTER);
- image(esposa,width/2, 940);
 
  // Sexo
  fill(0);
@@ -548,7 +555,7 @@ function indultosDemanda(){
           if (dis < 3) {
             fill(135,92,195);
             ellipse(5*i+x, 5*e + y,6);
-            explicacion = (presidente[u][(i*20)+e].court) + ' '+(presidente[u][(i*20)+e].crimes_sentences);
+            explicacion = (presidente[u][(i*25)+e].court) + ' '+(presidente[u][(i*25)+e].crimes_sentences);
 
             push();
             translate(mouseX, mouseY);
@@ -559,14 +566,14 @@ function indultosDemanda(){
              textAlign(LEFT);
              fill('white');
              textStyle(BOLD);
-             text((presidente[u][(i*20)+e].boe), 25,15);
+             text((presidente[u][(i*25)+e].boe), 25,15);
              textStyle(NORMAL);
-             text((presidente[u][(i*20)+e].boe_date)+ ' ' +(presidente[u][(i*20)+e].gender), 25,34);
+             text((presidente[u][(i*25)+e].boe_date)+ ' ' +(presidente[u][(i*25)+e].gender), 25,34);
              textSize(10);
              textStyle(BOLD);
-             text((presidente[u][(i*20)+e].signature), 25,48);
+             text((presidente[u][(i*25)+e].signature), 25,48);
              textStyle(NORMAL);
-             text((presidente[u][(i*20)+e].court) + ' '+(presidente[u][(i*20)+e].crimes_sentences), 25,54,210);
+             text((presidente[u][(i*25)+e].court) + ' '+(presidente[u][(i*25)+e].crimes_sentences), 25,54,210);
              pop();
 
             }
@@ -755,42 +762,6 @@ function ministroAct() {
   filtro();
 }
 
-function graveAct() {
-
-  if (gAct==true) {
-      gAct=false;
-      clave[2] = 'null';
-      filtro();
-  } else {
-    if (lAct == true){
-      leveAct();
-    }
-    gAct=true;
-    clave[2] = 'Grave';
-    filtro();
-  }
- //generoFiltro();
- //sliderFiltro();
-}
-
-function leveAct() {
-
-  if (lAct==true) {
-      lAct=false;
-      clave[2] = 'null';
-      filtro();
-  } else {
-    if (gAct == true){
-      graveAct();
-    }
-    lAct=true;
-    clave[2] = 'Leve';
-    filtro();
-  }
- //generoFiltro();
- //sliderFiltro();
-}
-
 function comunidadAct() {
 
   for (var i = 0; i < comunidades.length; i++){
@@ -874,14 +845,13 @@ function hombreAct() {
       filtro();
   } else {
     if (mAct == true){
-      mujerAct();
+      mAct=false;
     }
     hAct=true;
     clave[0] = 'Hombre';
     filtro();
   }
- //generoFiltro();
- //sliderFiltro();
+
 }
 
 function mujerAct() {
@@ -890,12 +860,50 @@ function mujerAct() {
         mAct=false;
         clave[0] = 'null';
         filtro();
+
     } else {
       if (hAct == true){
-        hombreAct();
+          hAct=false;
       }
       mAct=true;
       clave[0] = 'Mujer';
       filtro();
     }
 }
+
+function graveAct() {
+
+  if (gAct==true) {
+      gAct=false;
+      clave[2] = 'null';
+      filtro();
+  } else {
+    if (lAct == true){
+      lAct=false;
+    }
+    gAct=true;
+    clave[2] = 'Grave';
+    filtro();
+  }
+ //generoFiltro();
+ //sliderFiltro();
+}
+
+function leveAct() {
+
+  if (lAct==true) {
+      lAct=false;
+      clave[2] = 'null';
+      filtro();
+  } else {
+    if (gAct == true){
+        gAct=false;
+    }
+    lAct=true;
+    clave[2] = 'Leve';
+    filtro();
+  }
+ //generoFiltro();
+ //sliderFiltro();
+}
+
